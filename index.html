@@ -1,11 +1,57 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<title>Avatar Quiz</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+
+<div class="container">
+
+    <div class="robot">
+        <img src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png" id="robotImg">
+    </div>
+
+    <!-- START SKÄRM -->
+    <div id="startScreen" class="screen">
+        <button class="mainBtn">Avatar</button>
+        <button class="mainBtn">Logga in</button>
+        <button class="mainBtn" onclick="showScreen('titleScreen')">Gäst</button>
+        <div class="gear">⚙</div>
+    </div>
+
+    <!-- TITLE -->
+    <div id="titleScreen" class="screen hidden">
+        <h1>Programering Quis</h1>
+        <button class="mainBtn" onclick="showScreen('createQuestion')">Skapa Quiz</button>
+    </div>
+
+    <!-- CREATE QUESTION MED FÄRDIGA -->
+    <div id="createQuestion" class="screen hidden">
+        <h2>Vilken metod används för att konvertera en string till int i C#?</h2>
+
+        <input class="answerInput" value="Convert.ToInt32()">
+        <input class="answerInput" value="int.TryParse()">
+        <input class="answerInput" value="int.Parse()">
+        <input class="answerInput" placeholder="Add text ...">
+
+        <button class="saveBtn" onclick="saveQuestion()">Save</button>
+        <button class="mainBtn" onclick="showScreen('emptyCreate')">Tomma fält</button>
+    </div>
+
+    <!-- HELT TOMMA -->
+    <div id="emptyCreate" class="screen hidden">
+        <input class="answerInput" placeholder="Add text ...">
+        <input class="answerInput" placeholder="Add text ...">
+        <input class="answerInput" placeholder="Add text ...">
+        <input class="answerInput" placeholder="Add text ...">
+
+        <button class="saveBtn" onclick="saveQuestion()">Save</button>
+    </div>
+
+</div>
+
+<script src="index.js"></script>
 </body>
 </html>
