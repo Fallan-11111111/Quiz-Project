@@ -1,84 +1,162 @@
+// ===========================
+// SKÄRMHANERING
+// ===========================
 function showScreen(id) {
-    let screens = document.querySelectorAll(".screen");
-    screens.forEach(s => s.classList.add("hidden"));
-
+    document.querySelectorAll(".screen").forEach(s => s.classList.add("hidden"));
     document.getElementById(id).classList.remove("hidden");
 }
 
-function saveQuestion() {
+// ===========================
+// VARIABLER
+// ===========================
+let currentQuiz = { title: "", questions: [] };
+let tempQuestions = [];
+let currentQuestionIndex = 0;
 
-    const titleInput = document.getElementById("quizTitle");
-    const title = titleInput ? titleInput.value : "";
+// ===========================
+// ADD QUESTION
+// ===========================
+function addQuestion() {
+    const questionText = document.getElementById("questionInput").value.trim();
+    const answers = [
+        document.getElementById("answer1").value.trim(),
+        document.getElementById("answer2").value.trim(),
+        document.getElementById("answer3").value.trim(),
+        document.getElementById("answer4").value.trim()
+    ].filter(a => a !== "");
 
-    const answers = document.querySelectorAll("#createQuestionScreen .answerInput");
+    if (questionText === "" || answers.length === 0) {
+        alert("Fråga och minst ett svar krävs!");
+        return;
+    }
 
+    tempQuestions.push({ question: questionText, answers: answers });
+
+    // Rensa inputs
+    document.getElementById("questionInput").value = "";
+    document.getElementById("answer1").value = "";
+    document.getElementById("answer2").value = "";
+    document.getElementById("answer3").value = "";
+    document.getElementById("answer4").value = "";
+
+    // Visa antal frågor
+    document.getElementById("questionCounter").textContent = `Frågor skapade: ${tempQuestions.length}`;
+
+    // Gå tillbaka till quiz screen
+    showScreen('createQuizScreen');
+}
+
+// ===========================
+// SAVE QUIZ
+// ===========================
+function saveQuiz() {
+    const title = document.getElementById("quizTitle").value.trim();
     if (title === "") {
-        alert("Skriv en titel!");
+        alert("Skriv en titel för quizen!");
+        return;
+    }
+    if (tempQuestions.length === 0) {
+        alert("Lägg till minst en fråga!");
         return;
     }
 
-    let answerArray = [];
+    currentQuiz = { title: title, questions: tempQuestions };
 
-    answers.forEach(input => {
-        if (input.value.trim() !== "" && input.id !== "quizTitle") {
-            answerArray.push(input.value.trim());
-        }
-    });
-
-    if (answerArray.length === 0) {
-        alert("Skriv minst ett svar!");
-        return;
-    }
-
-    // Skapa quiz-objekt
-    const quiz = {
-        title: title,
-        answers: answerArray
-    };
-
-    // Hämta gamla quiz
+    // Hämta gamla quiz från localStorage
     let savedQuizzes = JSON.parse(localStorage.getItem("quizzes")) || [];
-
-    // Lägg till nytt
-    savedQuizzes.push(quiz);
-
-    // Spara
+    savedQuizzes.push(currentQuiz);
     localStorage.setItem("quizzes", JSON.stringify(savedQuizzes));
 
     alert("Quiz sparat!");
+    tempQuestions = [];
+    currentQuiz = { title: "", questions: [] };
+    document.getElementById("quizTitle").value = "";
+    document.getElementById("questionCounter").textContent = "Frågor skapade: 0";
 
-    clearInputs();
+    loadQuizzes();
     showScreen('projectsScreen');
 }
 
-function clearInputs() {
-    let inputs = document.querySelectorAll(".answerInput");
-    inputs.forEach(input => input.value = "");
+// ===========================
+// CANCEL QUIZ
+// ===========================
+function cancelQuiz() {
+    tempQuestions = [];
+    document.getElementById("quizTitle").value = "";
+    document.getElementById("questionCounter").textContent = "Frågor skapade: 0";
+    showScreen('projectsScreen');
 }
 
+// ===========================
+// LOAD QUIZZES
+// ===========================
 function loadQuizzes() {
-
     const projectList = document.querySelector(".projectList");
-    if (!projectList) return;
+    projectList.innerHTML = "";
 
-    let savedQuizzes = JSON.parse(localStorage.getItem("quizzes")) || [];
+    const savedQuizzes = JSON.parse(localStorage.getItem("quizzes")) || [];
 
-    // rensa gamla auto-skapade (behåll dina fasta kort om du vill)
-    savedQuizzes.forEach((quiz) => {
-
+    savedQuizzes.forEach((quiz, i) => {
         const card = document.createElement("div");
         card.classList.add("projectCard");
-
         card.innerHTML = `
             <span>${quiz.title}</span>
             <span class="arrow">›</span>
         `;
-
-        card.onclick = () => showScreen('createQuestionScreen');
-
+        card.onclick = () => startQuiz(i);
         projectList.appendChild(card);
     });
 }
 
-// kör när sidan laddas
-loadQuizzes();
+// ===========================
+// START QUIZ
+// ===========================
+function startQuiz(index) {
+    const savedQuizzes = JSON.parse(localStorage.getItem("quizzes")) || [];
+    currentQuiz = savedQuizzes[index];
+    currentQuestionIndex = 0;
+
+    document.getElementById("playTitle").textContent = currentQuiz.title;
+    showScreen('playScreen');
+    showQuestion();
+}
+
+// ===========================
+// SHOW QUESTION
+// ===========================
+function showQuestion() {
+    const questionObj = currentQuiz.questions[currentQuestionIndex];
+    document.getElementById("playQuestion").textContent = questionObj.question;
+
+    const answersDiv = document.getElementById("playAnswers");
+    answersDiv.innerHTML = "";
+    questionObj.answers.forEach(ans => {
+        const btn = document.createElement("button");
+        btn.textContent = ans;
+        btn.classList.add("mainBtn");
+        answersDiv.appendChild(btn);
+    });
+
+    document.getElementById("questionProgress").textContent =
+        `Fråga ${currentQuestionIndex + 1} av ${currentQuiz.questions.length}`;
+}
+
+// ===========================
+// NEXT QUESTION
+// ===========================
+function nextQuestion() {
+    if (currentQuestionIndex < currentQuiz.questions.length - 1) {
+        currentQuestionIndex++;
+        showQuestion();
+    } else {
+        alert("Quiz klart!");
+        showScreen('projectsScreen');
+    }
+}
+
+// ===========================
+// INIT
+// ===========================
+window.onload = function() {
+    loadQuizzes();
+};

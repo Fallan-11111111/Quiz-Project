@@ -2,68 +2,47 @@
 <html lang="sv">
 <head>
 <meta charset="UTF-8">
-<title>Avatar Quiz</title>
+<title>Quiz App</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<div class="container">
-
-    <!-- ROBOT -->
     <div class="robot">
-        <img src="Project.Robot.png" id="robotImg">
+        <img src="Project.Robot.png" id="robot.Img">
     </div>
 
-    <!-- START SKÄRM -->
-    <div id="startScreen" class="screen start-layout">
-        <h1 class="title">AVATAR</h1>
+<div id="projectsScreen" class="screen">
+    <h1 class="pageTitle">Mina Quiz</h1>
+    <div class="projectList"></div>
+    <button class="mainBtn" onclick="showScreen('createQuizScreen')">Skapa nytt Quiz</button>
+</div>
 
-        <div class="button-group">
-            <button class="mainBtn" onclick="showScreen('projectsScreen')">Logga in</button>
-            <button class="mainBtn" onclick="showScreen('projectsScreen')">Gäst</button>
-        </div>
+<div id="createQuizScreen" class="screen hidden">
+    <h1 class="pageTitle">Skapa Quiz</h1>
+    <input type="text" id="quizTitle" placeholder="Quiz titel">
+    <p id="questionCounter">Frågor skapade: 0</p>
+    <button class="mainBtn" onclick="showScreen('createQuestionScreen')">Lägg till fråga</button>
+    <button class="mainBtn" onclick="saveQuiz()">Spara Quiz</button>
+    <button class="mainBtn" onclick="cancelQuiz()">Tillbaka</button>
+</div>
 
-        <div class="gear">⚙</div>
-    </div>
+<div id="createQuestionScreen" class="screen hidden">
+    <h1 class="pageTitle">Ny Fråga</h1>
+    <input type="text" id="questionInput" placeholder="Fråga...">
+    <input type="text" id="answer1" placeholder="Svar 1">
+    <input type="text" id="answer2" placeholder="Svar 2">
+    <input type="text" id="answer3" placeholder="Svar 3">
+    <input type="text" id="answer4" placeholder="Svar 4">
+    <button class="mainBtn" onclick="addQuestion()">Spara fråga</button>
+    <button class="mainBtn" onclick="showScreen('createQuizScreen')">Tillbaka</button>
+</div>
 
-    <!-- QUIZ LISTA -->
-    <div id="projectsScreen" class="screen hidden">
-        <h1 class="pageTitle">Programmering Quiz</h1>
-        <div class="computerIcon">💻</div>
-
-        <div class="projectList">
-            <div class="projectCard" onclick="showScreen('createQuestionScreen')">
-                <span>C# Grundkurs</span>
-                <span class="arrow">›</span>
-            </div>
-
-            <div class="projectCard" onclick="showScreen('createQuestionScreen')">
-                <span>Variabler Quiz</span>
-                <span class="arrow">›</span>
-            </div>
-        </div>
-
-        <button class="fab" onclick="showScreen('createQuestionScreen')">+</button>
-    </div>
-
-    <!-- SKAPA QUIZ -->
-    <div id="createQuestionScreen" class="screen hidden">
-        <h1 class="pageTitle">Skapa Quiz</h1>
-
-        <input id="quizTitle" class="answerInput" placeholder="Quiz titel...">
-
-        <input class="answerInput" placeholder="Fråga...">
-        <input class="answerInput" placeholder="Svar 1...">
-        <input class="answerInput" placeholder="Svar 2...">
-        <input class="answerInput" placeholder="Svar 3...">
-        <input class="answerInput" placeholder="Svar 4...">
-
-        <button class="saveBtn" onclick="saveQuestion()">Spara</button>
-        <button class="mainBtn" onclick="showScreen('emptyCreateScreen')">Tomma fält</button>
-        <button class="mainBtn" onclick="showScreen('projectsScreen')">Tillbaka</button>
-    </div>
-
-
+<div id="playScreen" class="screen hidden">
+    <h1 id="playTitle" class="pageTitle"></h1>
+    <h2 id="playQuestion"></h2>
+    <div id="playAnswers"></div>
+    <p id="questionProgress"></p>
+    <button class="mainBtn" onclick="nextQuestion()">Nästa</button>
+    <button class="mainBtn" onclick="showScreen('projectsScreen')">Avsluta</button>
 </div>
 
 <script src="index.js"></script>
