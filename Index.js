@@ -9,3 +9,12 @@ function showScreen(id){
 function saveQuestion(){
     alert("Frågan sparades!");
 }
+function goBack(){
+
+    // Rensa alla inputfält
+    let inputs = document.querySelectorAll(".answerInput");
+    inputs.forEach(input => input.value = "");
+
+    // Gå tillbaka till titleScreen
+    showScreen('titleScreen');
+}
