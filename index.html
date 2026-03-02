@@ -9,54 +9,72 @@
 
 <div class="container">
 
+    <!-- ROBOT -->
     <div class="robot">
         <img src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png" id="robotImg">
     </div>
 
     <!-- START SKÄRM -->
-<div id="startScreen" class="screen start-layout">
+    <div id="startScreen" class="screen start-layout">
+        <h1 class="title">AVATAR</h1>
 
-    <h1 class="title">AVATAR</h1>
+        <div class="button-group">
+            <button class="mainBtn" onclick="showScreen('projectsScreen')">Logga in</button>
+            <button class="mainBtn" onclick="showScreen('projectsScreen')">Gäst</button>
+        </div>
 
-    <div class="button-group">
-        <button class="mainBtn">Avatar</button>
-        <button class="mainBtn">Loga in</button>
-        <button class="mainBtn" onclick="showScreen('titleScreen')">Gäst</button>
+        <div class="gear">⚙</div>
     </div>
 
-    <div class="gear">⚙</div>
-</div>
-    <!-- TITLE -->
-    <div id="titleScreen" class="screen hidden">
-        <h1>Programering Quis</h1>
-        <button class="mainBtn" onclick="showScreen('createQuestion')">Skapa Quiz</button>
-        
+    <!-- QUIZ LISTA -->
+    <div id="projectsScreen" class="screen hidden">
+        <h1 class="pageTitle">Programmering Quiz</h1>
+        <div class="computerIcon">💻</div>
+
+        <div class="projectList">
+            <div class="projectCard" onclick="showScreen('createQuestionScreen')">
+                <span>C# Grundkurs</span>
+                <span class="arrow">›</span>
+            </div>
+
+            <div class="projectCard" onclick="showScreen('createQuestionScreen')">
+                <span>Variabler Quiz</span>
+                <span class="arrow">›</span>
+            </div>
+        </div>
+
+        <button class="fab" onclick="showScreen('createQuestionScreen')">+</button>
     </div>
 
-    <!-- CREATE QUESTION MED FÄRDIGA -->
-    <div id="createQuestion" class="screen hidden">
+    <!-- SKAPA QUIZ -->
+    <div id="createQuestionScreen" class="screen hidden">
+        <h1 class="pageTitle">Skapa Quiz</h1>
+
         <input id="quizTitle" class="answerInput" placeholder="Quiz titel...">
-    
 
-        <input class="answerInput" value="Add text ...">
-        <input class="answerInput" value="Add text ...">
-        <input class="answerInput" value="iAdd text ...">
-        <input class="answerInput" placeholder="Add text ...">
+        <input class="answerInput" placeholder="Fråga...">
+        <input class="answerInput" placeholder="Svar 1...">
+        <input class="answerInput" placeholder="Svar 2...">
+        <input class="answerInput" placeholder="Svar 3...">
+        <input class="answerInput" placeholder="Svar 4...">
 
-        <button class="saveBtn" onclick="saveQuestion()">Save</button>
-        <button class="mainBtn" onclick="showScreen('emptyCreate')">Tomma fält</button>
-        <button class="mainBtn" onclick="goBack()">Avbryt</button>
+        <button class="saveBtn" onclick="saveQuestion()">Spara</button>
+        <button class="mainBtn" onclick="showScreen('emptyCreateScreen')">Tomma fält</button>
+        <button class="mainBtn" onclick="showScreen('projectsScreen')">Tillbaka</button>
     </div>
 
-    <!-- HELT TOMMA -->
-    <div id="emptyCreate" class="screen hidden">
-        <input class="answerInput" placeholder="Add text ...">
-        <input class="answerInput" placeholder="Add text ...">
-        <input class="answerInput" placeholder="Add text ...">
-        <input class="answerInput" placeholder="Add text ...">
+    <!-- HELT TOMMA FÄLT -->
+    <div id="emptyCreateScreen" class="screen hidden">
+        <h1 class="pageTitle">Tomma fält</h1>
 
-        <button class="saveBtn" onclick="saveQuestion()">Save</button>
-        <button class="mainBtn" onclick="goBack()">Avbryt</button>
+        <input class="answerInput" placeholder="Fråga...">
+        <input class="answerInput" placeholder="Svar 1...">
+        <input class="answerInput" placeholder="Svar 2...">
+        <input class="answerInput" placeholder="Svar 3...">
+        <input class="answerInput" placeholder="Svar 4...">
+
+        <button class="saveBtn" onclick="saveQuestion()">Spara</button>
+        <button class="mainBtn" onclick="showScreen('createQuestionScreen')">Tillbaka</button>
     </div>
 
 </div>

@@ -146,3 +146,115 @@ body{
 .hidden{
     display:none;
 }
+/* ===== PAGE TITLE ===== */
+
+.pageTitle{
+    color:white;
+    font-size:48px;
+    margin-bottom:10px;
+}
+
+.computerIcon{
+    font-size:48px;
+    color:white;
+    margin-bottom:30px;
+}
+
+/* ===== PROJECT LIST ===== */
+
+.projectList{
+    width:70%;
+    max-width:700px;
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.projectCard{
+    background:white;
+    border-radius:20px;
+    padding:20px 24px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-weight:500;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.projectCard:hover{
+    transform:translateY(-2px);
+}
+
+.arrow{
+    font-size:22px;
+    color:#666;
+}
+
+/* ===== FLOATING BUTTON ===== */
+
+.fab{
+    position:fixed;
+    bottom:90px;
+    right:30px;
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    border:none;
+    background:#b87333;
+    color:white;
+    font-size:36px;
+    cursor:pointer;
+    box-shadow:0 15px 30px rgba(0,0,0,0.25);
+}
+
+/* ===== FORM CARD ===== */
+
+.formCard{
+    background:white;
+    width:65%;
+    max-width:750px;
+    padding:40px;
+    border-radius:24px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.18);
+}
+
+/* ===== QUESTION INPUT ===== */
+
+.questionInput{
+    width:100%;
+    padding:16px;
+    border-radius:12px;
+    border:1px solid #ddd;
+    margin:20px 0;
+    font-size:16px;
+}
+
+/* ===== OPTION ROW ===== */
+
+.optionRow{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin:10px 0;
+}
+
+/* ===== FORM BUTTONS ===== */
+
+.formButtons{
+    display:flex;
+    justify-content:space-between;
+    margin-top:25px;
+}
+
+/* ===== BACK BUTTON ===== */
+
+.backBtn{
+    background:white;
+    border:1px solid #ccc;
+    padding:12px 26px;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:500;
+}

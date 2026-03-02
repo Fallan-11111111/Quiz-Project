@@ -1,17 +1,18 @@
-function showScreen(id){
-
+function showScreen(id) {
     let screens = document.querySelectorAll(".screen");
     screens.forEach(s => s.classList.add("hidden"));
 
     document.getElementById(id).classList.remove("hidden");
 }
 
-function saveQuestion(){
+function saveQuestion() {
 
-    const title = document.getElementById("quizTitle").value;
-    const answers = document.querySelectorAll("#createQuestion .answerInput");
+    const titleInput = document.getElementById("quizTitle");
+    const title = titleInput ? titleInput.value : "";
 
-    if(title === ""){
+    const answers = document.querySelectorAll("#createQuestionScreen .answerInput");
+
+    if (title === "") {
         alert("Skriv en titel!");
         return;
     }
@@ -19,12 +20,12 @@ function saveQuestion(){
     let answerArray = [];
 
     answers.forEach(input => {
-        if(input.value !== "" && input.id !== "quizTitle"){
-            answerArray.push(input.value);
+        if (input.value.trim() !== "" && input.id !== "quizTitle") {
+            answerArray.push(input.value.trim());
         }
     });
 
-    if(answerArray.length === 0){
+    if (answerArray.length === 0) {
         alert("Skriv minst ett svar!");
         return;
     }
@@ -38,39 +39,46 @@ function saveQuestion(){
     // Hämta gamla quiz
     let savedQuizzes = JSON.parse(localStorage.getItem("quizzes")) || [];
 
-    // Lägg till nytt quiz
+    // Lägg till nytt
     savedQuizzes.push(quiz);
 
-    // Spara igen
+    // Spara
     localStorage.setItem("quizzes", JSON.stringify(savedQuizzes));
 
     alert("Quiz sparat!");
-    loadQuizzes();
-    goBack();
-}
-function goBack(){
 
-    // Rensa alla inputfält
+    clearInputs();
+    showScreen('projectsScreen');
+}
+
+function clearInputs() {
     let inputs = document.querySelectorAll(".answerInput");
     inputs.forEach(input => input.value = "");
-
-    // Gå tillbaka till titleScreen
-    showScreen('titleScreen');
 }
-function loadQuizzes(){
 
-    const quizList = document.getElementById("quizList");
-    quizList.innerHTML = "";
+function loadQuizzes() {
+
+    const projectList = document.querySelector(".projectList");
+    if (!projectList) return;
 
     let savedQuizzes = JSON.parse(localStorage.getItem("quizzes")) || [];
 
-    savedQuizzes.forEach((quiz, index) => {
+    // rensa gamla auto-skapade (behåll dina fasta kort om du vill)
+    savedQuizzes.forEach((quiz) => {
 
-        const quizBtn = document.createElement("button");
-        quizBtn.classList.add("mainBtn");
-        quizBtn.textContent = quiz.title;
+        const card = document.createElement("div");
+        card.classList.add("projectCard");
 
-        quizList.appendChild(quizBtn);
+        card.innerHTML = `
+            <span>${quiz.title}</span>
+            <span class="arrow">›</span>
+        `;
+
+        card.onclick = () => showScreen('createQuestionScreen');
+
+        projectList.appendChild(card);
     });
-}   
+}
+
+// kör när sidan laddas
 loadQuizzes();
