@@ -45,7 +45,7 @@ function saveQuestion(){
     localStorage.setItem("quizzes", JSON.stringify(savedQuizzes));
 
     alert("Quiz sparat!");
-
+    loadQuizzes();
     goBack();
 }
 function goBack(){
@@ -59,8 +59,18 @@ function goBack(){
 }
 function loadQuizzes(){
 
+    const quizList = document.getElementById("quizList");
+    quizList.innerHTML = "";
+
     let savedQuizzes = JSON.parse(localStorage.getItem("quizzes")) || [];
 
-    console.log("Sparade quiz:", savedQuizzes);
-}
+    savedQuizzes.forEach((quiz, index) => {
+
+        const quizBtn = document.createElement("button");
+        quizBtn.classList.add("mainBtn");
+        quizBtn.textContent = quiz.title;
+
+        quizList.appendChild(quizBtn);
+    });
+}   
 loadQuizzes();
