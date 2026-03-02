@@ -1,34 +1,142 @@
+/* ===== BODY ===== */
+
 body{
     margin:0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(#6fb6ff,#3d8bdb);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    min-height:100vh;
+
+    /* mjuk blå gradient */
+    background: linear-gradient(
+        to bottom,
+        #7ec8ff 0%,
+        #4a90e2 100%
+    );
 }
+
+/* ===== CONTAINER ===== */
 
 .container{
-    display:flex;
-    height:100vh;
+    position:relative;
+    min-height:100vh;
 }
 
+/* ===== ROBOT ===== */
+
 .robot{
-    width:40%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    position:fixed;
+    bottom:20px;
+    left:20px;
 }
 
 .robot img{
-    width:200px;
-    animation: float 3s infinite;
+    width:140px;
+    animation: float 3s ease-in-out infinite;
 }
 
 @keyframes float{
-    0%{transform:translateY(0px);}
-    50%{transform:translateY(-15px);}
-    100%{transform:translateY(0px);}
+    0%{transform:translateY(0);}
+    50%{transform:translateY(-10px);}
+    100%{transform:translateY(0);}
 }
 
+/* ===== START LAYOUT ===== */
+
+.start-layout{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+/* ===== TITLE ===== */
+
+.title{
+    font-size:64px;
+    color:white;
+    letter-spacing:3px;
+    margin-bottom:40px;
+    font-weight:700;
+}
+
+/* ===== BUTTON GROUP ===== */
+
+.button-group{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+    align-items:center;
+}
+
+/* ===== MAIN BUTTON ===== */
+
+.mainBtn{
+    background:#b87333; /* brons */
+    color:white;
+    border:none;
+
+    width:320px;
+    padding:18px 0;
+
+    border-radius:999px;
+    font-size:18px;
+    font-weight:600;
+    cursor:pointer;
+
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+    transition:all 0.2s ease;
+}
+
+/* hover */
+.mainBtn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 25px rgba(0,0,0,0.2);
+}
+
+/* click */
+.mainBtn:active{
+    transform:translateY(1px);
+}
+
+/* ===== ANSWER INPUT ===== */
+
+.answerInput{
+    width:320px;
+    padding:14px;
+    margin:8px;
+    border-radius:12px;
+    border:1px solid #d0d0d0;
+    font-size:15px;
+}
+
+/* ===== SAVE BUTTON ===== */
+
+.saveBtn{
+    background:#2c7be5;
+    color:white;
+    border:none;
+    padding:14px 32px;
+    border-radius:12px;
+    cursor:pointer;
+    margin-top:20px;
+    font-weight:600;
+}
+
+/* ===== SETTINGS GEAR ===== */
+
+.gear{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    font-size:26px;
+    color:white;
+    cursor:pointer;
+}
+
+/* ===== GENERIC SCREEN ===== */
+
 .screen{
-    width:60%;
     display:flex;
     flex-direction:column;
     justify-content:center;
@@ -37,45 +145,4 @@ body{
 
 .hidden{
     display:none;
-}
-
-.mainBtn{
-    background:#2c7be5;
-    color:white;
-    border:none;
-    padding:15px;
-    margin:10px;
-    width:200px;
-    border-radius:12px;
-    font-size:18px;
-    cursor:pointer;
-}
-
-.mainBtn:hover{
-    background:#1a5fb4;
-}
-
-.answerInput{
-    width:300px;
-    padding:12px;
-    margin:8px;
-    border-radius:10px;
-    border:1px solid #ccc;
-}
-
-.saveBtn{
-    background:#2c7be5;
-    color:white;
-    border:none;
-    padding:12px 30px;
-    border-radius:12px;
-    cursor:pointer;
-    margin-top:20px;
-}
-
-.gear{
-    position:absolute;
-    bottom:20px;
-    right:20px;
-    font-size:25px;
 }
