@@ -2,49 +2,94 @@
 <html lang="sv">
 <head>
 <meta charset="UTF-8">
-<title>Quiz App</title>
+<title>Avatar Quiz</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="robot">
-        <img src="Project.Robot.png" id="robot.Img">
-    </div>
 
-<div id="projectsScreen" class="screen">
+<!-- ROBOT -->
+<div class="robot">
+    <img src="Project.Robot.png" alt="robot">
+</div>
+
+<!-- START SCREEN -->
+<div id="startScreen" class="screen start-layout">
+    <h1 class="title">AVATAR</h1>
+    <div class="button-group">
+        <button class="mainBtn" onclick="showScreen('projectsScreen')">Loga in</button>
+        <button class="mainBtn" onclick="showScreen('projectsScreen')">Gäst</button>
+    </div>
+    <div class="gear">⚙</div>
+</div>
+
+<!-- PROJECT LIST -->
+<div id="projectsScreen" class="screen hidden">
     <h1 class="pageTitle">Mina Quiz</h1>
     <div class="projectList"></div>
-    <button class="mainBtn" onclick="showScreen('createQuizScreen')">Skapa nytt Quiz</button>
+    <button class="fab" onclick="showScreen('createQuizScreen')">+</button>
 </div>
 
+<!-- CREATE QUIZ -->
 <div id="createQuizScreen" class="screen hidden">
-    <h1 class="pageTitle">Skapa Quiz</h1>
-    <input type="text" id="quizTitle" placeholder="Quiz titel">
-    <p id="questionCounter">Frågor skapade: 0</p>
-    <button class="mainBtn" onclick="showScreen('createQuestionScreen')">Lägg till fråga</button>
-    <button class="mainBtn" onclick="saveQuiz()">Spara Quiz</button>
-    <button class="mainBtn" onclick="cancelQuiz()">Tillbaka</button>
+    <div class="formCard">
+        <h1 class="cardTitle">Skapa Quiz</h1>
+        <input type="text" id="quizTitle" class="questionInput" placeholder="Quiz titel">
+        <p id="questionCounter">Frågor skapade: 0</p>
+        <div class="formButtons">
+            <button class="mainBtn" onclick="showScreen('createQuestionScreen')">Lägg till fråga</button>
+            <button class="mainBtn" onclick="saveQuiz()">Spara Quiz</button>
+            <button class="backBtn" onclick="cancelQuiz()">Tillbaka</button>
+        </div>
+    </div>
 </div>
 
+<!-- CREATE QUESTION -->
 <div id="createQuestionScreen" class="screen hidden">
-    <h1 class="pageTitle">Ny Fråga</h1>
-    <input type="text" id="questionInput" placeholder="Fråga...">
-    <input type="text" id="answer1" placeholder="Svar 1">
-    <input type="text" id="answer2" placeholder="Svar 2">
-    <input type="text" id="answer3" placeholder="Svar 3">
-    <input type="text" id="answer4" placeholder="Svar 4">
-    <button class="mainBtn" onclick="addQuestion()">Spara fråga</button>
-    <button class="mainBtn" onclick="showScreen('createQuizScreen')">Tillbaka</button>
+    <div class="formCard">
+        <h1 class="cardTitle">Ny fråga</h1>
+        <input type="text" id="questionInput" class="questionInput" placeholder="Fråga...">
+
+        <div class="answersGrid">
+            <input type="text" id="answer1" class="answerInput" placeholder="Svar 1">
+            <input type="text" id="answer2" class="answerInput" placeholder="Svar 2">
+            <input type="text" id="answer3" class="answerInput" placeholder="Svar 3">
+            <input type="text" id="answer4" class="answerInput" placeholder="Svar 4">
+        </div>
+
+        <p>Välj rätt svar:</p>
+        <select id="correctAnswer" class="questionInput">
+            <option value="0">Svar 1</option>
+            <option value="1">Svar 2</option>
+            <option value="2">Svar 3</option>
+            <option value="3">Svar 4</option>
+        </select>
+
+        <div class="formButtons">
+            <button class="mainBtn" onclick="addQuestion()">Spara fråga</button>
+            <button class="backBtn" onclick="showScreen('createQuizScreen')">Tillbaka</button>
+        </div>
+    </div>
 </div>
 
+<!-- PLAY SCREEN -->
 <div id="playScreen" class="screen hidden">
-    <h1 id="playTitle" class="pageTitle"></h1>
-    <h2 id="playQuestion"></h2>
-    <div id="playAnswers"></div>
-    <p id="questionProgress"></p>
-    <button class="mainBtn" onclick="nextQuestion()">Nästa</button>
-    <button class="mainBtn" onclick="showScreen('projectsScreen')">Avsluta</button>
+    <div class="formCard">
+        <h1 id="playTitle" class="cardTitle"></h1>
+        <h2 id="playQuestion"></h2>
+
+        <div id="playAnswers" class="answersPlay"></div>
+
+        <p id="questionProgress"></p>
+        <p id="scoreDisplay">Poäng: 0</p>
+
+        <div class="formButtons">
+            <button class="mainBtn" id="nextBtn" onclick="nextQuestion()" disabled>Nästa</button>
+            <button class="backBtn" onclick="showScreen('projectsScreen')">Avsluta</button>
+        </div>
+    </div>
 </div>
 
+<div class="mouse-glow"></div>
 <script src="index.js"></script>
 </body>
 </html>

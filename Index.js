@@ -1,162 +1,180 @@
-// ===========================
-// SKÄRMHANERING
-// ===========================
-function showScreen(id) {
-    document.querySelectorAll(".screen").forEach(s => s.classList.add("hidden"));
+function showScreen(id){ 
+    document.querySelectorAll(".screen").forEach(s=>s.classList.add("hidden"));
     document.getElementById(id).classList.remove("hidden");
 }
 
-// ===========================
-// VARIABLER
-// ===========================
-let currentQuiz = { title: "", questions: [] };
+/* ================= STATE ================= */
 let tempQuestions = [];
+let currentQuiz = null;
 let currentQuestionIndex = 0;
+let score = 0;
 
-// ===========================
-// ADD QUESTION
-// ===========================
-function addQuestion() {
+/* ================= ADD QUESTION ================= */
+function addQuestion(){
     const questionText = document.getElementById("questionInput").value.trim();
     const answers = [
-        document.getElementById("answer1").value.trim(),
-        document.getElementById("answer2").value.trim(),
-        document.getElementById("answer3").value.trim(),
-        document.getElementById("answer4").value.trim()
-    ].filter(a => a !== "");
+        answer1.value.trim(),
+        answer2.value.trim(),
+        answer3.value.trim(),
+        answer4.value.trim()
+    ].filter(a=>a!=="");
 
-    if (questionText === "" || answers.length === 0) {
+    const correctIndex = parseInt(document.getElementById("correctAnswer").value);
+
+    if(!questionText || answers.length===0){
         alert("Fråga och minst ett svar krävs!");
         return;
     }
 
-    tempQuestions.push({ question: questionText, answers: answers });
+    tempQuestions.push({question:questionText,answers,correct:correctIndex});
 
-    // Rensa inputs
-    document.getElementById("questionInput").value = "";
-    document.getElementById("answer1").value = "";
-    document.getElementById("answer2").value = "";
-    document.getElementById("answer3").value = "";
-    document.getElementById("answer4").value = "";
+    questionInput.value="";
+    answer1.value="";
+    answer2.value="";
+    answer3.value="";
+    answer4.value="";
+    document.getElementById("correctAnswer").value="0";
 
-    // Visa antal frågor
-    document.getElementById("questionCounter").textContent = `Frågor skapade: ${tempQuestions.length}`;
+    document.getElementById("questionCounter").textContent =
+        `Frågor skapade: ${tempQuestions.length}`;
 
-    // Gå tillbaka till quiz screen
     showScreen('createQuizScreen');
 }
 
-// ===========================
-// SAVE QUIZ
-// ===========================
-function saveQuiz() {
-    const title = document.getElementById("quizTitle").value.trim();
-    if (title === "") {
-        alert("Skriv en titel för quizen!");
+/* ================= SAVE QUIZ ================= */
+function saveQuiz(){
+    const title=document.getElementById("quizTitle").value.trim();
+
+    if(!title){
+        alert("Skriv en titel!");
         return;
     }
-    if (tempQuestions.length === 0) {
+
+    if(tempQuestions.length===0){
         alert("Lägg till minst en fråga!");
         return;
     }
 
-    currentQuiz = { title: title, questions: tempQuestions };
+    const quiz={title,questions:[...tempQuestions]};
 
-    // Hämta gamla quiz från localStorage
-    let savedQuizzes = JSON.parse(localStorage.getItem("quizzes")) || [];
-    savedQuizzes.push(currentQuiz);
-    localStorage.setItem("quizzes", JSON.stringify(savedQuizzes));
+    let saved=JSON.parse(localStorage.getItem("quizzes"))||[];
+    saved.push(quiz);
+    localStorage.setItem("quizzes",JSON.stringify(saved));
 
-    alert("Quiz sparat!");
-    tempQuestions = [];
-    currentQuiz = { title: "", questions: [] };
-    document.getElementById("quizTitle").value = "";
-    document.getElementById("questionCounter").textContent = "Frågor skapade: 0";
+    tempQuestions=[];
+    quizTitle.value="";
+    document.getElementById("questionCounter").textContent="Frågor skapade: 0";
 
     loadQuizzes();
     showScreen('projectsScreen');
 }
 
-// ===========================
-// CANCEL QUIZ
-// ===========================
-function cancelQuiz() {
-    tempQuestions = [];
-    document.getElementById("quizTitle").value = "";
-    document.getElementById("questionCounter").textContent = "Frågor skapade: 0";
+/* ================= CANCEL ================= */
+function cancelQuiz(){
+    tempQuestions=[];
+    quizTitle.value="";
+    document.getElementById("questionCounter").textContent="Frågor skapade: 0";
     showScreen('projectsScreen');
 }
 
-// ===========================
-// LOAD QUIZZES
-// ===========================
-function loadQuizzes() {
-    const projectList = document.querySelector(".projectList");
-    projectList.innerHTML = "";
+/* ================= LOAD ================= */
+function loadQuizzes(){
+    const list=document.querySelector(".projectList");
+    list.innerHTML="";
+    const saved=JSON.parse(localStorage.getItem("quizzes"))||[];
 
-    const savedQuizzes = JSON.parse(localStorage.getItem("quizzes")) || [];
-
-    savedQuizzes.forEach((quiz, i) => {
-        const card = document.createElement("div");
-        card.classList.add("projectCard");
-        card.innerHTML = `
-            <span>${quiz.title}</span>
-            <span class="arrow">›</span>
-        `;
-        card.onclick = () => startQuiz(i);
-        projectList.appendChild(card);
+    saved.forEach((quiz,i)=>{
+        const card=document.createElement("div");
+        card.className="projectCard";
+        card.innerHTML=`<span>${quiz.title}</span><span class="arrow">›</span>`;
+        card.onclick=()=>startQuiz(i);
+        list.appendChild(card);
     });
 }
 
-// ===========================
-// START QUIZ
-// ===========================
-function startQuiz(index) {
-    const savedQuizzes = JSON.parse(localStorage.getItem("quizzes")) || [];
-    currentQuiz = savedQuizzes[index];
-    currentQuestionIndex = 0;
-
-    document.getElementById("playTitle").textContent = currentQuiz.title;
+/* ================= PLAY ================= */
+function startQuiz(index){
+    const saved=JSON.parse(localStorage.getItem("quizzes"))||[];
+    currentQuiz=saved[index];
+    currentQuestionIndex=0;
+    score=0;
+    document.getElementById("scoreDisplay").textContent=`Poäng: ${score}`;
+    playTitle.textContent=currentQuiz.title;
     showScreen('playScreen');
     showQuestion();
 }
 
-// ===========================
-// SHOW QUESTION
-// ===========================
-function showQuestion() {
-    const questionObj = currentQuiz.questions[currentQuestionIndex];
-    document.getElementById("playQuestion").textContent = questionObj.question;
+function showQuestion(){
+    const q=currentQuiz.questions[currentQuestionIndex];
+    playQuestion.textContent=q.question;
 
-    const answersDiv = document.getElementById("playAnswers");
-    answersDiv.innerHTML = "";
-    questionObj.answers.forEach(ans => {
-        const btn = document.createElement("button");
-        btn.textContent = ans;
-        btn.classList.add("mainBtn");
-        answersDiv.appendChild(btn);
+    const box=document.getElementById("playAnswers");
+    box.innerHTML="";
+
+    q.answers.forEach((a,i)=>{
+        const btn=document.createElement("button");
+        btn.className="mainBtn";
+        btn.textContent=a;
+        btn.onclick=()=>checkAnswer(i,btn);
+        box.appendChild(btn);
     });
 
-    document.getElementById("questionProgress").textContent =
-        `Fråga ${currentQuestionIndex + 1} av ${currentQuiz.questions.length}`;
+    questionProgress.textContent =
+        `Fråga ${currentQuestionIndex+1} av ${currentQuiz.questions.length}`;
+    document.getElementById("nextBtn").disabled=true;
 }
 
-// ===========================
-// NEXT QUESTION
-// ===========================
-function nextQuestion() {
-    if (currentQuestionIndex < currentQuiz.questions.length - 1) {
+function checkAnswer(index,button){
+    const q=currentQuiz.questions[currentQuestionIndex];
+    const buttons=document.querySelectorAll("#playAnswers button");
+    buttons.forEach(b=>b.disabled=true);
+
+    if(index===q.correct){
+        button.classList.add("correct");
+        score++;
+    } else {
+        button.classList.add("wrong");
+        buttons[q.correct].classList.add("correct");
+    }
+
+    document.getElementById("scoreDisplay").textContent=`Poäng: ${score}`;
+    document.getElementById("nextBtn").disabled=false;
+}
+
+function nextQuestion(){
+    if(currentQuestionIndex<currentQuiz.questions.length-1){
         currentQuestionIndex++;
         showQuestion();
     } else {
-        alert("Quiz klart!");
+        alert(`Quiz klart! Slutpoäng: ${score} / ${currentQuiz.questions.length}`);
         showScreen('projectsScreen');
     }
 }
 
-// ===========================
-// INIT
-// ===========================
-window.onload = function() {
-    loadQuizzes();
-};
+/* ================= GLOW ================= */
+const glow=document.querySelector(".mouse-glow");
+document.addEventListener("mousemove",e=>{
+    glow.style.left=e.clientX+"px";
+    glow.style.top=e.clientY+"px";
+    glow.style.opacity="1";
+});
+document.addEventListener("mouseleave",()=>{glow.style.opacity="0";});
+
+/* ================= INIT ================= */
+window.onload=loadQuizzes;
+function checkAnswer(index,button){
+    const q = currentQuiz.questions[currentQuestionIndex];
+    const buttons = document.querySelectorAll("#playAnswers button");
+    buttons.forEach(b => b.disabled = true); // Stoppar fler klick
+
+    if(index === q.correct){
+        button.classList.add("correct");
+        score++;
+    } else {
+        button.classList.add("wrong");
+        buttons[q.correct].classList.add("correct"); // Visa rätt svar
+    }
+
+    document.getElementById("scoreDisplay").textContent = `Poäng: ${score}`;
+    document.getElementById("nextBtn").disabled = false;
+}

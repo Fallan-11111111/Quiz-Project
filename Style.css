@@ -2,22 +2,73 @@
 
 body{
     margin:0;
-    font-family: 'Segoe UI', Arial, sans-serif;
+    font-family:'Segoe UI', Arial, sans-serif;
     min-height:100vh;
-
-    /* mjuk blå gradient */
-    background: linear-gradient(
-        to bottom,
-        #7ec8ff 0%,
-        #4a90e2 100%
-    );
+    background: linear-gradient(180deg,#7ec8ff,#4a90e2);
+    overflow-x:hidden;
 }
 
-/* ===== CONTAINER ===== */
+/* ===== SCREEN ===== */
 
-.container{
-    position:relative;
+.screen{
     min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+
+.hidden{
+    display:none;
+}
+
+/* ===== START ===== */
+
+.start-layout{
+    text-align:center;
+}
+
+.title{
+    font-size:72px;
+    color:white;
+    letter-spacing:4px;
+    margin-bottom:40px;
+    font-weight:700;
+}
+
+/* ===== BUTTONS ===== */
+
+.button-group{
+    display:flex;
+    flex-direction:column;
+    gap:22px;
+}
+
+.mainBtn{
+    background:#b87333;
+    color:white;
+    border:none;
+    width:320px;
+    padding:18px 0;
+    border-radius:999px;
+    font-size:18px;
+    font-weight:600;
+    cursor:pointer;
+    box-shadow:0 10px 25px rgba(0,0,0,0.18);
+    transition:0.2s;
+}
+
+.mainBtn:hover{
+    transform:translateY(-2px);
+}
+
+.backBtn{
+    background:white;
+    border:1px solid #ccc;
+    padding:14px 26px;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:500;
 }
 
 /* ===== ROBOT ===== */
@@ -26,10 +77,11 @@ body{
     position:fixed;
     bottom:20px;
     left:20px;
+    z-index:2;
 }
 
 .robot img{
-    width:140px;
+    width:130px;
     animation: float 3s ease-in-out infinite;
 }
 
@@ -39,128 +91,13 @@ body{
     100%{transform:translateY(0);}
 }
 
-/* ===== START LAYOUT ===== */
-
-.start-layout{
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-}
-
-/* ===== TITLE ===== */
-
-.title{
-    font-size:64px;
-    color:white;
-    letter-spacing:3px;
-    margin-bottom:40px;
-    font-weight:700;
-}
-
-/* ===== BUTTON GROUP ===== */
-
-.button-group{
-    display:flex;
-    flex-direction:column;
-    gap:20px;
-    align-items:center;
-}
-
-/* ===== MAIN BUTTON ===== */
-
-.mainBtn{
-    background:#b87333; /* brons */
-    color:white;
-    border:none;
-
-    width:320px;
-    padding:18px 0;
-
-    border-radius:999px;
-    font-size:18px;
-    font-weight:600;
-    cursor:pointer;
-
-    box-shadow:0 8px 20px rgba(0,0,0,0.15);
-    transition:all 0.2s ease;
-}
-
-/* hover */
-.mainBtn:hover{
-    transform:translateY(-2px);
-    box-shadow:0 12px 25px rgba(0,0,0,0.2);
-}
-
-/* click */
-.mainBtn:active{
-    transform:translateY(1px);
-}
-
-/* ===== ANSWER INPUT ===== */
-
-.answerInput{
-    width:320px;
-    padding:14px;
-    margin:8px;
-    border-radius:12px;
-    border:1px solid #d0d0d0;
-    font-size:15px;
-}
-
-/* ===== SAVE BUTTON ===== */
-
-.saveBtn{
-    background:#2c7be5;
-    color:white;
-    border:none;
-    padding:14px 32px;
-    border-radius:12px;
-    cursor:pointer;
-    margin-top:20px;
-    font-weight:600;
-}
-
-/* ===== SETTINGS GEAR ===== */
-
-.gear{
-    position:fixed;
-    bottom:20px;
-    right:20px;
-    font-size:26px;
-    color:white;
-    cursor:pointer;
-}
-
-/* ===== GENERIC SCREEN ===== */
-
-.screen{
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-}
-
-.hidden{
-    display:none;
-}
-/* ===== PAGE TITLE ===== */
+/* ===== PROJECT LIST ===== */
 
 .pageTitle{
     color:white;
     font-size:48px;
-    margin-bottom:10px;
-}
-
-.computerIcon{
-    font-size:48px;
-    color:white;
     margin-bottom:30px;
 }
-
-/* ===== PROJECT LIST ===== */
 
 .projectList{
     width:70%;
@@ -180,11 +117,6 @@ body{
     font-weight:500;
     box-shadow:0 10px 25px rgba(0,0,0,0.15);
     cursor:pointer;
-    transition:0.2s;
-}
-
-.projectCard:hover{
-    transform:translateY(-2px);
 }
 
 .arrow{
@@ -192,7 +124,7 @@ body{
     color:#666;
 }
 
-/* ===== FLOATING BUTTON ===== */
+/* ===== FAB ===== */
 
 .fab{
     position:fixed;
@@ -209,7 +141,7 @@ body{
     box-shadow:0 15px 30px rgba(0,0,0,0.25);
 }
 
-/* ===== FORM CARD ===== */
+/* ===== CARD ===== */
 
 .formCard{
     background:white;
@@ -217,44 +149,85 @@ body{
     max-width:750px;
     padding:40px;
     border-radius:24px;
-    box-shadow:0 20px 40px rgba(0,0,0,0.18);
+    box-shadow:0 25px 50px rgba(0,0,0,0.18);
+    display:flex;
+    flex-direction:column;
+    gap:18px;
 }
 
-/* ===== QUESTION INPUT ===== */
+.cardTitle{
+    margin:0;
+}
+
+/* ===== INPUTS ===== */
 
 .questionInput{
     width:100%;
     padding:16px;
     border-radius:12px;
     border:1px solid #ddd;
-    margin:20px 0;
     font-size:16px;
 }
 
-/* ===== OPTION ROW ===== */
-
-.optionRow{
+.answersGrid{
     display:flex;
-    align-items:center;
+    flex-direction:column;
     gap:12px;
-    margin:10px 0;
 }
 
-/* ===== FORM BUTTONS ===== */
-
-.formButtons{
-    display:flex;
-    justify-content:space-between;
-    margin-top:25px;
-}
-
-/* ===== BACK BUTTON ===== */
-
-.backBtn{
-    background:white;
-    border:1px solid #ccc;
-    padding:12px 26px;
+.answerInput{
+    width:100%;
+    padding:14px;
     border-radius:12px;
-    cursor:pointer;
-    font-weight:500;
+    border:1px solid #d0d0d0;
+}
+
+/* ===== PLAY ===== */
+
+.answersPlay{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+/* ===== GEAR ===== */
+
+.gear{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    font-size:26px;
+    color:white;
+}
+
+/* ===== GLOW ===== */
+
+.mouse-glow{
+    position:fixed;
+    width:320px;
+    height:320px;
+    pointer-events:none;
+    border-radius:50%;
+    background: radial-gradient(circle,
+        rgba(255,255,255,0.25) 0%,
+        rgba(255,255,255,0.12) 30%,
+        transparent 70%);
+    transform:translate(-50%,-50%);
+    mix-blend-mode:screen;
+    opacity:0;
+    transition:opacity .25s ease;
+    z-index:0;
+}
+/* ===== PLAY ANSWERS FEEDBACK SMART ===== */
+
+.answersPlay button.correct{
+    background-color: #4CAF50 !important;  /* Grön bakgrund */
+    color: white !important;               /* Text vit */
+    border: 3px solid #2e7d32 !important; /* Mörk grön kant */
+}
+
+.answersPlay button.wrong{
+    background-color: #E74C3C !important; /* Röd bakgrund */
+    color: white !important;               /* Text vit */
+    border: 3px solid #c0392b !important; /* Mörk röd kant */
 }
