@@ -75,13 +75,13 @@ body{
 
 .robot{
     position:fixed;
-    bottom: 20px;px;
+    bottom: 20px;
     left:20px;
     z-index:2;
 }
 
 .robot img{
-    width: 200px;px;
+    width: 200px;
     animation: float 3s ease-in-out infinite;
 }
 
