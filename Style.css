@@ -75,13 +75,13 @@ body{
 
 .robot{
     position:fixed;
-    bottom:20px;
+    bottom: 20px;px;
     left:20px;
     z-index:2;
 }
 
 .robot img{
-    width:130px;
+    width: 200px;px;
     animation: float 3s ease-in-out infinite;
 }
 
@@ -187,7 +187,7 @@ body{
 .answersPlay{
     display:flex;
     flex-direction:column;
-    gap:12px;
+    gap:8px;
 }
 
 /* ===== GEAR ===== */
@@ -209,8 +209,8 @@ body{
     pointer-events:none;
     border-radius:50%;
     background: radial-gradient(circle,
-        rgba(255,255,255,0.25) 0%,
-        rgba(255,255,255,0.12) 30%,
+        rgba(113, 170, 255, 0.696) 0%,
+        rgba(254, 118, 249, 0.324) 30%,
         transparent 70%);
     transform:translate(-50%,-50%);
     mix-blend-mode:screen;
