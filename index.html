@@ -15,13 +15,26 @@
 </div>
 
 <div id="startScreen" class="screen">
-    <div class="hero-section">
-        <h1 class="title">AVATAR <span class="subtitle">QUIZ SYSTEM</span></h1>
-        <div class="button-group">
-            <button class="mainBtn gold" onclick="showScreen('projectsScreen')">Starta Spelet</button>
-            <button class="mainBtn outline" onclick="alert('Login kommer i framtida version!')">Logga in</button>
+    <div class="hero-section centered">
+        <h1 class="title hero-title">AVATAR</h1>
+        <span class="subtitle hero-subtitle">QUIZ SYSTEM</span>
+        
+        <div class="button-group hero-buttons">
+            <button class="mainBtn gold largeBtn" onclick="showScreen('projectsScreen')">Starta Spelet</button>
+            <button class="mainBtn outline largeBtn" onclick="alert('Login kommer i framtida version!')">Logga in</button>
         </div>
     </div>
+</div>
+
+<div id="projectsScreen" class="screen hidden">
+    <div class="glass-panel">
+        <div class="header-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h1 class="pageTitle" style="margin: 0;">Mitt Bibliotek</h1>
+            <button class="navBtn" onclick="showScreen('startScreen')">🏠 Till Startsidan</button>
+        </div>
+        <div class="projectList" id="projectList"></div>
+    </div>
+    <button class="fab" title="Skapa nytt quiz" onclick="showScreen('createQuizScreen')">+</button>
 </div>
 
 <div id="projectsScreen" class="screen hidden">
