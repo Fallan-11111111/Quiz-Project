@@ -101,7 +101,7 @@ body {
 
 /* ==== ROBOT & EFFEKTER ==== */
 .robot { position: fixed; bottom: 30px; left: 30px; z-index: 100; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-.robot img { width: 500px; filter: drop-shadow(0 0 10px rgba(0,242,255,0.2)); }
+.robot img { width: 400px; filter: drop-shadow(0 0 10px rgba(0,242,255,0.2)); }
 .speech-bubble {
     position: absolute; top: -60px; left: 50px; background: white; color: rgb(10, 10, 10);
     padding: 10px 15px; border-radius: 15px; font-weight: bold; font-size: 14px;
