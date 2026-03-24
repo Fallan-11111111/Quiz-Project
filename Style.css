@@ -103,7 +103,7 @@ body {
 .robot { position: fixed; bottom: 30px; left: 30px; z-index: 100; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 .robot img { width: 130px; filter: drop-shadow(0 0 10px rgba(0,242,255,0.2)); }
 .speech-bubble {
-    position: absolute; top: -60px; left: 50px; background: white; color: black;
+    position: absolute; top: -60px; left: 50px; background: white; color: rgb(10, 10, 10);
     padding: 10px 15px; border-radius: 15px; font-weight: bold; font-size: 14px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3); border-bottom-left-radius: 0; white-space: nowrap;
 }
