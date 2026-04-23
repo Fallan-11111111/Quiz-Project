@@ -11,7 +11,7 @@
 <div id="robotContainer" class="robot">
     <div id="robotEffects" class="effect-container"></div>
     <div class="speech-bubble" id="robotSpeech" style="display: none;">Välkommen!</div>
-    <img src="Project.Robot.png" alt="robot" id="robotImg">
+    <img src="Project.Robot.png" alt="robot" id="robotImg" onclick="pokeRobot()">
 </div>
 
 <div id="startScreen" class="screen">
@@ -32,17 +32,47 @@
             <h1 class="pageTitle" style="margin: 0;">Mitt Bibliotek</h1>
             <button class="navBtn" onclick="showScreen('startScreen')">🏠 Till Startsidan</button>
         </div>
+        <button class="mainBtn outline" onclick="importQuiz()" style="margin-bottom: 20px; border-color: var(--correct); color: var(--correct);">📥 Importera Quiz-kod</button>
+        
         <div class="projectList" id="projectList"></div>
     </div>
+    <button class="fab" id="courseFab" title="Färdiga kurser" onclick="showScreen('coursesScreen')" style="bottom: 110px; background: var(--gold);">🎓</button>
     <button class="fab" title="Skapa nytt quiz" onclick="showScreen('createQuizScreen')">+</button>
 </div>
 
-<div id="projectsScreen" class="screen hidden">
+<div id="coursesScreen" class="screen hidden">
     <div class="glass-panel">
-        <h1 class="pageTitle">Mitt Bibliotek</h1>
-        <div class="projectList" id="projectList"></div>
+        <div class="header-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h1 class="pageTitle" style="margin: 0;">Färdiga Kurser</h1>
+            <button class="navBtn" onclick="showScreen('projectsScreen')">🔙 Tillbaka</button>
+        </div>
+        <div class="projectList">
+            <div class="projectCard" onclick="selectCourse('webb')">
+                <div>
+                    <strong style="display:block; font-size:1.2em; color:var(--cyan)">Webbutveckling</strong>
+                    <small style="color:rgba(255,255,255,0.6)">HTML, CSS, JavaScript</small>
+                </div>
+            </div>
+            <div class="projectCard" onclick="selectCourse('matte')">
+                <div>
+                    <strong style="display:block; font-size:1.2em; color:var(--cyan)">Matematik</strong>
+                    <small style="color:rgba(255,255,255,0.6)">Logik och beräkningar</small>
+                </div>
+            </div>
+        </div>
     </div>
-    <button class="fab" title="Skapa nytt quiz" onclick="showScreen('createQuizScreen')">+</button>
+</div>
+
+<div id="levelScreen" class="screen hidden">
+    <div class="formCard centered">
+        <h2 class="cardTitle" id="levelTitle">Välj Svårighetsgrad</h2>
+        <div class="formButtons" style="display: flex; flex-direction: column; gap: 15px; margin-top: 30px;">
+            <button class="mainBtn" style="border-color: #00ff88; color: #00ff88;" onclick="startCourseLevel('easy')">Lätt</button>
+            <button class="mainBtn" style="border-color: var(--gold); color: var(--gold);" onclick="startCourseLevel('medium')">Mellan</button>
+            <button class="mainBtn" style="border-color: var(--wrong); color: var(--wrong);" onclick="startCourseLevel('hard')">Svår</button>
+            <button class="backBtn" onclick="showScreen('coursesScreen')">Avbryt</button>
+        </div>
+    </div>
 </div>
 
 <div id="createQuizScreen" class="screen hidden">
@@ -65,8 +95,10 @@
         <h2 class="cardTitle">Designa Fråga</h2>
         <input type="text" id="questionInput" class="techInput" placeholder="Skriv din fråga här...">
         
-        <p style="font-size: 0.9em; color: rgba(255,255,255,0.7); margin-bottom: 5px;">
-            Fyll i minst 2 alternativ. Markera rätt svar till vänster.
+        <input type="text" id="questionImage" class="techInput" placeholder="Länk till bild (Frivilligt) t.ex. https://..." style="margin-top: 10px;">
+        
+        <p style="font-size: 0.9em; color: rgba(255,255,255,0.7); margin: 15px 0 5px 0;">
+            Fyll i 2 till 4 alternativ (Fyll bara i 2 för Sant/Falskt). Markera rätt svar till vänster.
         </p>
 
         <div class="answersGrid" id="dynamicAnswers">
@@ -108,7 +140,9 @@
 
         <div class="progress-bar"><div id="progressFill"></div></div>
         
+        <img id="playImage" class="play-image hidden" src="" alt="Frågebild">
         <h2 id="playQuestion"></h2>
+        
         <div id="playAnswers" class="answersPlay"></div>
         <div class="playFooter">
             <button class="mainBtn" id="nextBtn" onclick="nextQuestion()" disabled>Nästa Fråga</button>
@@ -120,6 +154,7 @@
     <div class="formCard centered">
         <h1 class="cardTitle">Resultat!</h1>
         <div class="final-score" id="finalScoreDisplay">0/0</div>
+        <h3 id="highscoreMessage" style="color: var(--correct); display: none;">🏆 NYTT HIGHSCORE! 🏆</h3>
         <p id="resultMessage"></p>
         <button class="mainBtn gold" onclick="showScreen('projectsScreen')">Tillbaka till biblioteket</button>
     </div>
