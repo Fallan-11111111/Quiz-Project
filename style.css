@@ -50,7 +50,7 @@ body {
     font-size: 60px; 
     margin: 0; 
     background: linear-gradient(135deg, #fff, var(--cyan)); 
-    -webkit-background-clip: #ffffff text; 
+    -webkit-background-clip: text; 
     -webkit-text-fill-color: transparent; 
 }
 .subtitle { 
