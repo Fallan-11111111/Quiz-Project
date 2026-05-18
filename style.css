@@ -274,7 +274,8 @@ body {
 .answersPlay button.correct { 
     background: var(--correct) !important; 
     color: black; 
-    border-color: var(--correct); }
+    border-color: var(--correct); 
+}
 .answersPlay button.wrong { 
     background: var(--wrong) !important; 
     color: white; 
